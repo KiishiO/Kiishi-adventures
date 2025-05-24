@@ -18,4 +18,4 @@ A comic book-style personal website showcasing my journey from code newbie to te
 [View the live website](https://kiishio.github.io/Kiishi-adventures/)
 
 ---
-Built with ❤️ and lots of ☕ by Kishi
+Built with ❤️ and lots of ☕ by Kiishi
