@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Adventures of Kiishi - Tech Superhero Origin Story</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Bangers&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Neue', cursive;
+            overflow-x: hidden;
+        }
+        
+        /* Title Page - No bubble, just comic background */
+        .title-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+            background: url('./assets/comic-burst-background.jpg') center/cover;
+            /* Fallback gradient if image doesn't load */
+            background-color: #ff6b9d;
+            /* background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, transparent 70%),
+                radial-gradient(circle at 20% 30%, rgba(79, 172, 254, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 157, 0.3) 0%, transparent 50%); */
+            overflow: hidden;
+        }
+        
+        .story-panel {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+            overflow: hidden;
+            border-bottom: none; /* Removed harsh borders */
+            transition: all 0.8s ease-in-out;
+        }
+        
+        /* Smooth transition overlays between panels */
+        .story-panel::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.7) 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .story-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, transparent 0%, rgba(255,255,255,0.7) 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        /* Remove transition effects from title page */
+        .title-page::before,
+        .title-page::after {
+            display: none;
+        }
+        
+        /* Comic book backgrounds for each panel with smoother blending */
+        .story-panel:nth-child(2) {
+            background: 
+                linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)),
+                url('./assets/comic-panel-pink.jpg') center/cover;
+            background-color: #ff6b9d;
+        }
+        
+        .story-panel:nth-child(3) {
+            background: 
+                linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)),
+                url('./assets/comic-panel-blue.jpg') center/cover;
+            background-color: #4facfe;
+        }
+        
+        .story-panel:nth-child(4) {
+            background: 
+                linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)),
+                url('./assets/comic-panel-green.jpg') center/cover;
+            background-color: #43e97b;
+        }
+        
+        .story-panel:nth-child(5) {
+            background: 
+                linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)),
+                url('./assets/comic-panel-yellow.jpg') center/cover;
+            background-color: #feca57;
+        }
+        
+        .story-panel:nth-child(6) {
+            background: 
+                linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)),
+                url('./assets/comic-panel-multi.jpg') center/cover;
+            background-color: #6a4c93;
+        }
+        
+        .story-panel:nth-child(7) {
+            background: 
+                linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)),
+                url('./assets/to-be-continued-background.jpg') center/cover;
+            background-color: #2c2c2c;
+        }
+        
+        .comic-bubble {
+            background: rgba(255, 255, 255, 0.95);
+            border: 4px solid #333;
+            border-radius: 25px;
+            padding: 2rem;
+            position: relative;
+            max-width: 700px; /* Reduced from 800px */
+            width: 90%;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.2),
+                inset 0 0 0 2px rgba(255, 255, 255, 0.8);
+            transform: rotate(-1deg);
+            animation: subtleFloat 4s ease-in-out infinite;
+        }
+        
+        .comic-bubble:nth-child(even) {
+            transform: rotate(1deg);
+        }
+        
+        .comic-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid rgba(255, 255, 255, 0.95);
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+        }
+        
+        .title-content {
+            text-align: center;
+            color: #333;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 30px;
+            border: 4px solid #333;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .main-title {
+            font-family: 'Bangers', cursive;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #333;
+            text-shadow: 
+                3px 3px 0px #ffffff,
+                6px 6px 0px rgba(255, 107, 157, 0.3);
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .title-bitmoji {
+            margin: 2rem 0;
+        }
+        
+        .title-bitmoji img {
+            width: 350px;
+            height: 350px;
+            border-radius: 25px; /* Rounded rectangle instead of circle */
+            border: 4px solid #333;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            animation: heroFloat 3s ease-in-out infinite;
+            object-fit: cover;
+        }
+        
+        .chapter-title {
+            font-family: 'Bangers', cursive;
+            font-size: 2.5rem; /* Slightly smaller */
+            color: #333;
+            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: 
+                2px 2px 0px #ffffff,
+                4px 4px 0px rgba(0, 0, 0, 0.1);
+            animation: titleBounce 2s ease-in-out infinite;
+        }
+        
+        .story-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+            text-align: center;
+            margin: 1rem 0;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
+        
+        .bitmoji-container {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        
+        .bitmoji-container img {
+            width: 250px;
+            height: 250px;
+            border: 4px solid #333;
+            border-radius: 20px; /* Changed from 50% to rounded rectangle */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            animation: gentleFloat 3s ease-in-out infinite;
+            object-fit: cover; /* Ensures good image scaling */
+        }
+        
+        .small-bitmoji img {
+            width: 150px;
+            height: 150px;
+            border-radius: 15px; /* Proportionally smaller rounded corners */
+        }
+        
+        .comic-sound-effect {
+            position: absolute;
+            font-family: 'Bangers', cursive;
+            font-weight: bold;
+            animation: soundEffect 4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 4; /* Above transition overlays */
+            text-shadow: 2px 2px 0px #ffffff;
+        }
+        
+        .sound-boom {
+            font-size: 2.5rem;
+            color: #ff6b9d;
+            top: 15%;
+            right: 10%;
+            transform: rotate(-15deg);
+        }
+        
+        .sound-pow {
+            font-size: 2rem;
+            color: #4facfe;
+            bottom: 20%;
+            left: 8%;
+            transform: rotate(20deg);
+            animation-delay: 1s;
+        }
+        
+        .sound-zap {
+            font-size: 1.8rem;
+            color: #43e97b;
+            top: 60%;
+            right: 15%;
+            transform: rotate(-10deg);
+            animation-delay: 2s;
+        }
+        
+        .sound-bang {
+            font-size: 2.2rem;
+            color: #feca57;
+            top: 25%;
+            left: 12%;
+            transform: rotate(15deg);
+            animation-delay: 0.5s;
+        }
+        
+        .stats-box {
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid #333;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .achievement-badge {
+            background: linear-gradient(45deg, #feca57, #ff6b9d);
+            border: 3px solid #333;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.5rem;
+            font-weight: bold;
+            color: #333;
+            animation: badgeGlow 3s ease-in-out infinite;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+        }
+        
+        .project-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 20px;
+            border: 3px solid #333;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-box h3 {
+            color: #333;
+            text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+        
+        .leadership-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            gap: 1rem;
+        }
+        
+        .leadership-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 15px;
+            border: 3px solid #333;
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .leadership-card strong {
+            color: #333;
+            text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+        }
+        
+        .contact-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 25px;
+            border: 4px solid #333;
+            text-align: center;
+            margin: 2rem 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .contact-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .contact-item {
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .contact-item .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-item strong {
+            color: #333;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-item span {
+            color: #6a4c93;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .finale-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(106, 76, 147, 0.1);
+            border-radius: 15px;
+            border: 2px dashed #6a4c93;
+        }
+        
+        .finale-box h4 {
+            font-family: 'Bangers', cursive;
+            font-size: 1.8rem;
+            color: #6a4c93;
+            margin-bottom: 0.5rem;
+        }
+        
+        .finale-box p {
+            color: #333;
+            font-style: italic;
+        }
+        
+        /* Animations */
+        @keyframes subtleFloat {
+            0%, 100% { transform: translateY(0px) rotate(-1deg); }
+            50% { transform: translateY(-8px) rotate(-1deg); }
+        }
+        
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.02); }
+        }
+        
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes titleBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes soundEffect {
+            0%, 100% { 
+                transform: scale(1) rotate(var(--rotation, 0deg)); 
+                opacity: 0.8;
+            }
+            50% { 
+                transform: scale(1.1) rotate(var(--rotation, 0deg)); 
+                opacity: 1;
+            }
+        }
+        
+        @keyframes badgeGlow {
+            0%, 100% { 
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+                transform: scale(1.05);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 3rem;
+            }
+            
+            .chapter-title {
+                font-size: 2rem;
+            }
+            
+            .comic-bubble {
+                max-width: 95%;
+                padding: 1.5rem;
+            }
+            
+            .title-bitmoji img {
+                width: 300px;
+                height: 300px;
+                border-radius: 20px;
+            }
+            
+            .bitmoji-container img {
+                width: 200px;
+                height: 200px;
+                border-radius: 15px;
+            }
+            
+            .small-bitmoji img {
+                width: 130px;
+                height: 130px;
+                border-radius: 12px;
+            }
+            
+            .leadership-grid {
+                flex-direction: column;
+            }
+            
+            .contact-grid {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Title Page -->
+    <div class="title-page">
+        <div class="title-content">
+            <h1 class="main-title">THE ADVENTURES OF Kiishi</h1>
+            <p class="subtitle">From Code Newbie to Tech Superhero 🚀</p>
+            
+            <div class="title-bitmoji">
+                <img src="assets/superhero-Kiishi.png" alt="Kiishi in superhero pose with cape" />
+            </div>
+            
+            <p style="font-size: 1.2rem; color: #333; margin-top: 1rem;">
+                Scroll down to begin the epic journey! ⬇️
+            </p>
+        </div>
+    </div>
+
+    <!-- Chapter 1: The Discovery -->
+    <div class="story-panel">
+        <!-- Comic Sound Effects -->
+        <div class="comic-sound-effect sound-boom">BOOM!</div>
+        <div class="comic-sound-effect sound-pow">POW!</div>
+        
+        <div class="comic-bubble">
+            <h2 class="chapter-title">CHAPTER 1: THE DISCOVERY! 💡</h2>
+            
+            <div class="bitmoji-container">
+                <img src="assets/curious-Kiishi-computer.png" alt="Kiishi looking curious and excited at computer" />
+            </div>
+            
+            <p class="story-text">
+                Once upon a time, there was a student named Kiishi who thought computers were just for social media and Netflix...
+                <br><br>
+                <strong>UNTIL ONE FATEFUL DAY!</strong> 🎭
+                <br><br>
+                She discovered the magical world of SOFTWARE ENGINEERING at Iowa State University! 
+                Suddenly, everything changed! The screen lit up with possibilities, and Kiishi realized she had found her calling!
+            </p>
+            
+            <div class="stats-box">
+                <div class="stat-item">
+                    <span>Excitement Level:</span>
+                    <span>📈 OVER 9000!</span>
+                </div>
+                <div class="stat-item">
+                    <span>Current GPA:</span>
+                    <span>⭐ 3.70 (Pretty darn good!)</span>
+                </div>
+                <div class="stat-item">
+                    <span>Expected Graduation:</span>
+                    <span>🎓 May 2027</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chapter 2: Power-Up Time! -->
+    <div class="story-panel">
+        <!-- Comic Sound Effects -->
+        <div class="comic-sound-effect sound-zap">ZAP!</div>
+        <div class="comic-sound-effect sound-bang">BANG!</div>
+        
+        <div class="comic-bubble">
+            <h2 class="chapter-title">CHAPTER 2: POWER-UP TIME! ⚡</h2>
+            
+            <div class="bitmoji-container">
+                <img src="assets/flexing-code-power.png" alt="Kiishi flexing muscles with coding symbols floating around" />
+            </div>
+            
+            <p class="story-text">
+                Like a video game character collecting power-ups, Kiishi began mastering the ancient arts of programming! 
+                Each language she learned made her stronger! 💪
+            </p>
+            
+            <div style="text-align: center; margin: 2rem 0;">
+                <div class="achievement-badge">C</div>
+                <div class="achievement-badge">Java</div>
+                <div class="achievement-badge">Python</div>
+                <div class="achievement-badge">JS</div>
+                <div class="achievement-badge">HTML</div>
+                <div class="achievement-badge">CSS</div>
+            </div>
+            
+            <p class="story-text">
+                But wait, there's more! She also gained mystical powers in:
+                <br>
+                🔧 Git (for when she inevitably breaks everything)<br>
+                ⚛️ React (because who doesn't love components?)<br>
+                🍃 MongoDB (where data goes to party)<br>
+                📱 Android Studio (mobile magic!)
+            </p>
+            
+            <div class="bitmoji-container">
+                <img src="assets/tech-magic-surrounded.png" alt="Kiishi surrounded by floating tech logos looking amazed" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Chapter 3: Epic Quests -->
+    <div class="story-panel">
+        <!-- Comic Sound Effects -->
+        <div class="comic-sound-effect" style="font-size: 2rem; color: #43e97b; top: 20%; left: 15%; transform: rotate(-12deg);">WHOOSH!</div>
+        <div class="comic-sound-effect" style="font-size: 1.8rem; color: #feca57; bottom: 30%; right: 20%; transform: rotate(18deg);">KAPOW!</div>
+        
+        <div class="comic-bubble">
+            <h2 class="chapter-title">CHAPTER 3: EPIC QUESTS! 🗡️</h2>
+            
+            <p class="story-text">
+                Armed with her newfound powers, Kiishi embarked on legendary quests (a.k.a. "projects" for the muggles):
+            </p>
+            
+            <div class="project-box">
+                <h3>🌍 CY'S WORLD ADVENTURE</h3>
+                <div class="bitmoji-container small-bitmoji">
+                    <img src="assets/team-builder-Kiishi.png" alt="Kiishi building something with tools, teamwork pose" />
+                </div>
+                <p>Teamed up with 3 other brave souls to create an Android app toolkit for students! 
+                Used Java, SpringBoot, and MySQL like a boss. It was like Avengers, but with more bugs to fix! 🐛</p>
+            </div>
+            
+            <div class="project-box">
+                <h3>🎮 GAME TRIBE EMPIRE</h3>
+                <div class="bitmoji-container small-bitmoji">
+                    <img src="assets/gaming-guru-Kiishi.png" alt="Kiishi as a gaming character with controller" />
+                </div>
+                <p>Built an entire digital storefront for games! Full-stack development with the MERN stack. 
+                Basically became the Jeff Bezos of gaming, but cooler! 😎</p>
+            </div>
+            
+            <div class="project-box">
+                <h3>📚 THE STORY LAB CHRONICLES</h3>
+                <div class="bitmoji-container small-bitmoji">
+                    <img src="assets/storyteller-Kiishi.png" alt="Kiishi reading a book with sparkles around" />
+                </div>
+                <p>Conceptualized an educational game platform that makes literature fun for kids! 
+                Because who says learning can't be an adventure? 📖✨</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chapter 4: Leadership Unlocked -->
+    <div class="story-panel">
+        <!-- Comic Sound Effects -->
+        <div class="comic-sound-effect" style="font-size: 2.3rem; color: #ff6b9d; top: 15%; right: 12%; transform: rotate(-8deg);">SUPER!</div>
+        <div class="comic-sound-effect" style="font-size: 2rem; color: #4facfe; bottom: 25%; left: 10%; transform: rotate(25deg);">AMAZING!</div>
+        
+        <div class="comic-bubble">
+            <h2 class="chapter-title">CHAPTER 4: LEADERSHIP UNLOCKED! 👑</h2>
+            
+            <div class="bitmoji-container">
+                <img src="assets/queen-Kiishi-crown.png" alt="Kiishi wearing a crown, hands on hips, leader pose" />
+            </div>
+            
+            <p class="story-text">
+                Plot twist! Our hero discovered she had LEADERSHIP SUPERPOWERS! 🦸‍♀️
+            </p>
+            
+            <div class="leadership-grid">
+                <div class="leadership-card">
+                    <strong>🚺 Girls Who Code VP</strong>
+                    <div class="bitmoji-container small-bitmoji">
+                        <img src="assets/presenting-Kiishi.png" alt="Kiishi giving a presentation to a group" />
+                    </div>
+                    <p>Leading the charge for women in tech! Because girl power isn't just a song! 🎵</p>
+                </div>
+                
+                <div class="leadership-card">
+                    <strong>💃 Social Chair Extraordinaire</strong>
+                    <div class="bitmoji-container small-bitmoji">
+                        <img src="assets/party-planner-Kiishi.png" alt="Kiishi planning events with party decorations" />
+                    </div>
+                    <p>Making engineering social one event at a time! Who says techies can't party? 🎉</p>
+                </div>
+                
+                <div class="leadership-card">
+                    <strong>🎓 Peer Mentor Hero</strong>
+                    <div class="bitmoji-container small-bitmoji">
+                        <img src="assets/mentor-Kiishi.png" alt="Kiishi helping younger students, teaching pose" />
+                    </div>
+                    <p>Guiding 20-25 freshmen through the coding wilderness! Like a tech Gandalf! 🧙‍♀️</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chapter 5: The Future Awaits -->
+    <div class="story-panel">
+        <div class="comic-bubble">
+            <h2 class="chapter-title" style="color: #6a4c93;">CHAPTER 5: THE FUTURE AWAITS! 🚀</h2>
+            
+            <div class="bitmoji-container">
+                <img src="assets/future-tech-Kiishi.png" alt="Kiishi in a futuristic tech setting with AI symbols floating around" />
+            </div>
+            
+            <p class="story-text">
+                But wait! The adventure is far from over! Our hero has set her sights on even greater challenges...
+                <br><br>
+                🤖 <strong>MASTER'S IN ARTIFICIAL INTELLIGENCE</strong> (Coming 2027!)
+                <br>
+                🛡️ <strong>CYBERSECURITY MINOR</strong> (Because hackers beware!)
+                <br><br>
+                What epic adventures await in the world of AI? Will Kiishi become the ultimate tech superhero? 
+                Will she solve world hunger with an algorithm? Will she teach robots to make the perfect cup of coffee? ☕
+            </p>
+            
+            <div class="contact-section">
+                <h3 style="color: #6a4c93; margin-bottom: 1rem;">🎯 READY TO JOIN THE ADVENTURE?</h3>
+                
+                <div class="bitmoji-container">
+                    <img src="assets/professional-wave-Kiishi.png" alt="Kiishi waving with a friendly smile, professional but approachable" />
+                </div>
+                
+                <p style="margin: 1.5rem 0; color: #333;">Looking for internships, collaborations, or just want to chat about tech, leadership, or the best coffee shops near Iowa State?</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="icon">📧</div>
+                        <strong>Email</strong>
+                        <span>kiishiosomo@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">💻</div>
+                        <strong>GitHub</strong>
+                        <span>github.com/KiishiOsomo</span>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">💼</div>
+                        <strong>LinkedIn</strong>
+                        <span>linkedin.com/in/kiishi-o</span>
+                    </div>
+                </div>
+                
+                <div style="margin: 2rem 0;">
+                    <p style="font-size: 1.2rem; color: #6a4c93; font-weight: bold;">Let's build the future together! 🌟</p>
+                    <p style="font-style: italic; color: #9d4edd; margin-top: 0.5rem;">Where logic dances with design</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TO BE CONTINUED Page -->
+    <div class="story-panel">
+        <!-- Remove transition effects from final page -->
+        <style>
+            .story-panel:last-child::after {
+                display: none;
+            }
+        </style>
+        
+        <div class="comic-bubble" style="max-width: 800px; text-align: center;">
+            <div style="margin: 3rem 0;">
+                <h1 style="font-family: 'Bangers', cursive; font-size: 4rem; color: #333; text-shadow: 3px 3px 0px #ffffff, 6px 6px 0px rgba(0, 0, 0, 0.2); margin-bottom: 2rem; animation: titlePulse 2s ease-in-out infinite;">
+                    TO BE CONTINUED...
+                </h1>
+                
+                <div class="bitmoji-container" style="margin: 3rem 0;">
+                    <img src="assets/mysterious-Kiishi.png" alt="Kiishi with a mysterious, confident expression looking toward the future" />
+                </div>
+                
+                <div style="background: rgba(106, 76, 147, 0.1); padding: 2rem; border-radius: 20px; border: 3px dashed #6a4c93; margin: 2rem 0;">
+                    <h3 style="font-family: 'Bangers', cursive; font-size: 2rem; color: #6a4c93; margin-bottom: 1rem;">🎬 END OF EPISODE 1 🎬</h3>
+                    <p style="font-size: 1.2rem; color: #333; line-height: 1.6; margin-bottom: 1rem;">
+                        Will our hero conquer the world of AI? 🤖<br>
+                        Will she revolutionize cybersecurity? 🛡️<br>
+                        Will she change the tech world forever? 🌍
+                    </p>
+                    <p style="font-style: italic; color: #9d4edd; font-size: 1.1rem;">
+                        Find out in the next thrilling chapter of Kiishi's tech adventure!
+                    </p>
+                </div>
+                
+                <div style="margin-top: 3rem; padding: 1.5rem; background: linear-gradient(45deg, rgba(106, 76, 147, 0.1), rgba(157, 78, 221, 0.1)); border-radius: 15px; border: 2px solid #c77dff;">
+                    <p style="font-size: 1rem; color: #6a4c93; margin: 0;">
+                        ✨ <strong>Stay tuned for more adventures!</strong> ✨
+                    </p>
+                    <p style="font-size: 0.9rem; color: #9d4edd; margin: 0.5rem 0 0 0; font-style: italic;">
+                        Follow the journey on LinkedIn and GitHub for updates!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Clean, minimal interactions with smooth scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth hover effects for comic bubbles
+            document.querySelectorAll('.comic-bubble').forEach(bubble => {
+                bubble.addEventListener('mouseenter', function() {
+                    this.style.transform = this.style.transform.replace('rotate', 'scale(1.02) rotate');
+                });
+                
+                bubble.addEventListener('mouseleave', function() {
+                    this.style.transform = this.style.transform.replace('scale(1.02) ', '');
+                });
+            });
+            
+            // Click effects for sound effects
+            document.querySelectorAll('.comic-sound-effect').forEach(effect => {
+                effect.addEventListener('click', function() {
+                    this.style.animation = 'none';
+                    setTimeout(() => {
+                        this.style.animation = 'soundEffect 0.8s ease-out';
+                    }, 10);
+                });
+            });
+            
+            // Enhanced smooth scroll behavior
+            document.documentElement.style.scrollBehavior = 'smooth';
+            
+            // Add scroll-triggered animations for smooth transitions
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all story panels for smooth entrance
+            document.querySelectorAll('.story-panel').forEach(panel => {
+                observer.observe(panel);
+            });
+        });
+    </script>
+</body>
+</html>
