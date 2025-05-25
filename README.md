@@ -15,7 +15,7 @@ A comic book-style personal website showcasing my journey from code newbie to te
 - Comic book design principles
 
 ## 🌐 Live Demo
-[View the live website](https://kiishio.github.io/Kiishi-adventures/)
+[View the live website](https://kiishio.github.io/Portfolio/)
 
 ---
 Built with ❤️ and lots of ☕ by Kiishi
