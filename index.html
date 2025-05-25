@@ -30,10 +30,6 @@
             background: url('./assets/comic-burst-background.jpg') center/cover;
             /* Fallback gradient if image doesn't load */
             background-color: #ff6b9d;
-            /* background-image: 
-                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, transparent 70%),
-                radial-gradient(circle at 20% 30%, rgba(79, 172, 254, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 107, 157, 0.3) 0%, transparent 50%); */
             overflow: hidden;
         }
         
@@ -45,7 +41,7 @@
             position: relative;
             padding: 2rem;
             overflow: hidden;
-            border-bottom: none; /* Removed harsh borders */
+            border-bottom: none;
             transition: all 0.8s ease-in-out;
         }
         
@@ -129,7 +125,7 @@
             border-radius: 25px;
             padding: 2rem;
             position: relative;
-            max-width: 700px; /* Reduced from 800px */
+            max-width: 700px;
             width: 90%;
             box-shadow: 
                 0 15px 35px rgba(0, 0, 0, 0.2),
@@ -191,7 +187,7 @@
         .title-bitmoji img {
             width: 350px;
             height: 350px;
-            border-radius: 25px; /* Rounded rectangle instead of circle */
+            border-radius: 25px;
             border: 4px solid #333;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             animation: heroFloat 3s ease-in-out infinite;
@@ -200,7 +196,7 @@
         
         .chapter-title {
             font-family: 'Bangers', cursive;
-            font-size: 2.5rem; /* Slightly smaller */
+            font-size: 2.5rem;
             color: #333;
             text-align: center;
             margin-bottom: 1rem;
@@ -229,16 +225,16 @@
             width: 250px;
             height: 250px;
             border: 4px solid #333;
-            border-radius: 20px; /* Changed from 50% to rounded rectangle */
+            border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             animation: gentleFloat 3s ease-in-out infinite;
-            object-fit: cover; /* Ensures good image scaling */
+            object-fit: cover;
         }
         
         .small-bitmoji img {
             width: 150px;
             height: 150px;
-            border-radius: 15px; /* Proportionally smaller rounded corners */
+            border-radius: 15px;
         }
         
         .comic-sound-effect {
@@ -247,7 +243,7 @@
             font-weight: bold;
             animation: soundEffect 4s ease-in-out infinite;
             pointer-events: none;
-            z-index: 4; /* Above transition overlays */
+            z-index: 4;
             text-shadow: 2px 2px 0px #ffffff;
         }
         
@@ -321,19 +317,40 @@
             text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
         }
         
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
         .project-box {
             background: rgba(255, 255, 255, 0.9);
             padding: 1.5rem;
-            margin: 1rem 0;
             border-radius: 20px;
             border: 3px solid #333;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         
         .project-box h3 {
             color: #333;
             text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
             margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .tech-stack {
+            background: rgba(106, 76, 147, 0.1);
+            border: 2px solid #6a4c93;
+            border-radius: 10px;
+            padding: 0.8rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #6a4c93;
         }
         
         .leadership-grid {
@@ -502,6 +519,11 @@
                 border-radius: 12px;
             }
             
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
             .leadership-grid {
                 flex-direction: column;
             }
@@ -601,7 +623,11 @@
                 🔧 Git (for when she inevitably breaks everything)<br>
                 ⚛️ React (because who doesn't love components?)<br>
                 🍃 MongoDB (where data goes to party)<br>
-                📱 Android Studio (mobile magic!)
+                📱 Android Studio (mobile magic!)<br>
+                🌐 Node.js (backend wizardry)<br>
+                🗄️ MySQL (relational database mastery)<br>
+                🔒 Cybersecurity Fundamentals (digital defense)<br>
+                📐 Verilog & VHDL (hardware sorcery)
             </p>
             
             <div class="bitmoji-container">
@@ -623,31 +649,54 @@
                 Armed with her newfound powers, Kiishi embarked on legendary quests (a.k.a. "projects" for the muggles):
             </p>
             
-            <div class="project-box">
-                <h3>🌍 CY'S WORLD ADVENTURE</h3>
-                <div class="bitmoji-container small-bitmoji">
-                    <img src="assets/team-builder-Kiishi.png" alt="Kiishi building something with tools, teamwork pose" />
+            <div class="projects-grid">
+                <div class="project-box">
+                    <h3>🌍 CY'S WORLD ADVENTURE</h3>
+                    <div class="bitmoji-container small-bitmoji">
+                        <img src="assets/team-builder-Kiishi.png" alt="Kiishi building something with tools, teamwork pose" />
+                    </div>
+                    <p>Collaborated with a team of four to develop an Android app designed as a comprehensive toolkit for students and teachers, inspired by the existing MyState app.</p>
+                    <div class="tech-stack">
+                        <strong>Tech Arsenal:</strong> Java | SpringBoot | Android Studio | MySQL
+                    </div>
+                    <p style="margin-top: auto;"><em>Achievement Unlocked:</em> Full-stack mobile development mastery! 📱✨</p>
                 </div>
-                <p>Teamed up with 3 other brave souls to create an Android app toolkit for students! 
-                Used Java, SpringBoot, and MySQL like a boss. It was like Avengers, but with more bugs to fix! 🐛</p>
-            </div>
-            
-            <div class="project-box">
-                <h3>🎮 GAME TRIBE EMPIRE</h3>
-                <div class="bitmoji-container small-bitmoji">
-                    <img src="assets/gaming-guru-Kiishi.png" alt="Kiishi as a gaming character with controller" />
+                
+                <div class="project-box">
+                    <h3>🎮 GAME TRIBE EMPIRE</h3>
+                    <div class="bitmoji-container small-bitmoji">
+                        <img src="assets/gaming-guru-Kiishi.png" alt="Kiishi as a gaming character with controller" />
+                    </div>
+                    <p>Built an entire digital storefront and distribution platform for buying and playing video games! Complete with user authentication, game libraries, and purchasing systems.</p>
+                    <div class="tech-stack">
+                        <strong>Tech Arsenal:</strong> MongoDB | Express.js | React | Node.js (MERN Stack)
+                    </div>
+                    <p style="margin-top: auto;"><em>Achievement Unlocked:</em> E-commerce platform architect! 🏪🎯</p>
                 </div>
-                <p>Built an entire digital storefront for games! Full-stack development with the MERN stack. 
-                Basically became the Jeff Bezos of gaming, but cooler! 😎</p>
-            </div>
-            
-            <div class="project-box">
-                <h3>📚 THE STORY LAB CHRONICLES</h3>
-                <div class="bitmoji-container small-bitmoji">
-                    <img src="assets/storyteller-Kiishi.png" alt="Kiishi reading a book with sparkles around" />
+                
+                <div class="project-box">
+                    <h3>📚 THE STORY LAB CHRONICLES</h3>
+                    <div class="bitmoji-container small-bitmoji">
+                        <img src="assets/storyteller-Kiishi.png" alt="Kiishi reading a book with sparkles around" />
+                    </div>
+                    <p>Conceptualized an innovative educational online-based game platform for kids and classrooms that seamlessly integrates literature and technology.</p>
+                    <div class="tech-stack">
+                        <strong>Vision Stack:</strong> Educational Technology | Game Design | Literature Integration
+                    </div>
+                    <p style="margin-top: auto;"><em>Achievement Unlocked:</em> EdTech visionary! 🎓🌟</p>
                 </div>
-                <p>Conceptualized an educational game platform that makes literature fun for kids! 
-                Because who says learning can't be an adventure? 📖✨</p>
+                
+                <div class="project-box">
+                    <h3>🕵️ MURDER-MYSTERY QUEST</h3>
+                    <div class="bitmoji-container small-bitmoji">
+                        <img src="assets/detective-Kiishi.png" alt="Kiishi as detective with magnifying glass" />
+                    </div>
+                    <p>Created the backend design and wireframe for a web-based murder mystery game. Players become detectives, gathering clues and solving intricate mysteries!</p>
+                    <div class="tech-stack">
+                        <strong>Design Arsenal:</strong> Figma | Backend Architecture | Game Logic Design
+                    </div>
+                    <p style="margin-top: auto;"><em>Achievement Unlocked:</em> Mystery architect! 🔍🎯</p>
+                </div>
             </div>
         </div>
     </div>
@@ -675,7 +724,7 @@
                     <div class="bitmoji-container small-bitmoji">
                         <img src="assets/presenting-Kiishi.png" alt="Kiishi giving a presentation to a group" />
                     </div>
-                    <p>Leading the charge for women in tech! Because girl power isn't just a song! 🎵</p>
+                    <p>Leading the charge for women in tech! Overseeing officer activities, serving as Risk Management Officer, and working with the board to guide club initiatives. Because girl power isn't just a song! 🎵</p>
                 </div>
                 
                 <div class="leadership-card">
@@ -683,7 +732,7 @@
                     <div class="bitmoji-container small-bitmoji">
                         <img src="assets/party-planner-Kiishi.png" alt="Kiishi planning events with party decorations" />
                     </div>
-                    <p>Making engineering social one event at a time! Who says techies can't party? 🎉</p>
+                    <p>Making engineering social one event at a time! Collaborating with the board to plan epic events and attending outreach activities. Who says techies can't party? 🎉</p>
                 </div>
                 
                 <div class="leadership-card">
@@ -691,7 +740,7 @@
                     <div class="bitmoji-container small-bitmoji">
                         <img src="assets/mentor-Kiishi.png" alt="Kiishi helping younger students, teaching pose" />
                     </div>
-                    <p>Guiding 20-25 freshmen through the coding wilderness! Like a tech Gandalf! 🧙‍♀️</p>
+                    <p>Guiding 20-25 freshmen through the coding wilderness! Leading classrooms, mentoring C programming projects, and fostering technical growth through hands-on coding sessions. Like a tech Gandalf! 🧙‍♀️</p>
                 </div>
             </div>
         </div>
@@ -728,11 +777,6 @@
                 
                 <div class="contact-grid">
                     <div class="contact-item">
-                        <div class="icon">📧</div>
-                        <strong>Email</strong>
-                        <span>kiishiosomo@gmail.com</span>
-                    </div>
-                    <div class="contact-item">
                         <div class="icon">💻</div>
                         <strong>GitHub</strong>
                         <span>github.com/KiishiO</span>
@@ -742,11 +786,22 @@
                         <strong>LinkedIn</strong>
                         <span>linkedin.com/in/kiishi-o</span>
                     </div>
+                    <div class="contact-item">
+                        <div class="icon">🌐</div>
+                        <strong>Portfolio</strong>
+                        <span>kiishio.github.io/Kiishi-adventures</span>
+                    </div>
                 </div>
                 
                 <div style="margin: 2rem 0;">
                     <p style="font-size: 1.2rem; color: #6a4c93; font-weight: bold;">Let's build the future together! 🌟</p>
                     <p style="font-style: italic; color: #9d4edd; margin-top: 0.5rem;">Where logic dances with design</p>
+                </div>
+                
+                <div style="margin-top: 2rem; padding: 1rem; background: rgba(106, 76, 147, 0.1); border-radius: 10px; border: 2px dashed #6a4c93;">
+                    <p style="font-size: 0.9rem; color: #6a4c93; margin: 0;">
+                        💡 <strong>Want to connect directly?</strong> Find me through LinkedIn or GitHub for the fastest response!
+                    </p>
                 </div>
             </div>
         </div>
