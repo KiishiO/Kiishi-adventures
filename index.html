@@ -77,42 +77,42 @@
         }
         
         /* Comic book backgrounds for each panel with smoother blending */
-        .story-panel:nth-child(2) {
+        .chapter-1-bg {
             background: 
                 linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)),
                 url('./assets/comic-panel-pink.jpg') center/cover;
             background-color: #ff6b9d;
         }
         
-        .story-panel:nth-child(3) {
+        .chapter-2-bg {
             background: 
                 linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)),
                 url('./assets/comic-panel-blue.jpg') center/cover;
             background-color: #4facfe;
         }
         
-        .story-panel:nth-child(4) {
+        .chapter-3-bg {
             background: 
                 linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)),
                 url('./assets/comic-panel-green.jpg') center/cover;
             background-color: #43e97b;
         }
         
-        .story-panel:nth-child(5) {
+        .chapter-4-bg {
             background: 
                 linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)),
                 url('./assets/comic-panel-yellow.jpg') center/cover;
             background-color: #feca57;
         }
         
-        .story-panel:nth-child(6) {
+        .chapter-5-bg {
             background: 
                 linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)),
                 url('./assets/comic-panel-multi.jpg') center/cover;
             background-color: #6a4c93;
         }
         
-        .story-panel:nth-child(7) {
+        .final-bg {
             background: 
                 linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)),
                 url('./assets/to-be-continued-background.jpg') center/cover;
@@ -486,36 +486,83 @@
             }
         }
         
+        /* Audio Controls */
+        .audio-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid #333;
+            border-radius: 50px;
+            padding: 10px 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .audio-controls:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .audio-icon {
+            font-size: 1.2rem;
+            animation: musicPulse 2s ease-in-out infinite;
+        }
+        
+        .audio-controls.muted .audio-icon {
+            animation: none;
+            opacity: 0.5;
+        }
+        
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .main-title {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
             
             .chapter-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .comic-bubble {
-                max-width: 95%;
-                padding: 1.5rem;
+                max-width: 90%;
+                padding: 1.2rem;
+                margin: 0 auto;
+            }
+            
+            .title-content {
+                max-width: 90%;
+                padding: 2rem;
             }
             
             .title-bitmoji img {
-                width: 300px;
-                height: 300px;
+                width: 250px;
+                height: 250px;
                 border-radius: 20px;
             }
             
             .bitmoji-container img {
-                width: 200px;
-                height: 200px;
+                width: 180px;
+                height: 180px;
                 border-radius: 15px;
             }
             
             .small-bitmoji img {
-                width: 130px;
-                height: 130px;
+                width: 120px;
+                height: 120px;
                 border-radius: 12px;
             }
             
@@ -530,11 +577,102 @@
             
             .contact-grid {
                 flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .contact-section {
+                padding: 1.5rem;
+                margin: 1rem auto;
+                max-width: 90%;
+            }
+            
+            .contact-item {
+                padding: 0.8rem;
+            }
+            
+            .contact-item span {
+                font-size: 0.8rem;
+                word-break: break-all;
+            }
+            
+            .story-text {
+                font-size: 1.1rem;
+                line-height: 1.5;
+            }
+            
+            .audio-controls {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .comic-sound-effect {
+                font-size: 1.5rem !important;
+            }
+            
+            .sound-boom, .sound-pow, .sound-zap, .sound-bang {
+                font-size: 1.5rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .chapter-title {
+                font-size: 1.6rem;
+            }
+            
+            .comic-bubble {
+                max-width: 95%;
+                padding: 1rem;
+            }
+            
+            .title-content {
+                padding: 1.5rem;
+            }
+            
+            .title-bitmoji img {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .bitmoji-container img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .small-bitmoji img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .contact-section {
+                padding: 1rem;
+            }
+            
+            .project-box {
+                padding: 1rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Audio Controls -->
+    <div class="audio-controls" id="audioToggle">
+        <span class="audio-icon">🎵</span>
+        <span>Music</span>
+    </div>
+    
+    <!-- Hidden audio element for your custom music file -->
+    <audio id="backgroundMusic" loop preload="none">
+        <source src="./assets/superhero-theme.mp3" type="audio/mpeg">
+        <source src="./assets/superhero-theme.wav" type="audio/wav">
+        <!-- Add your audio file here -->
+    </audio>
+
     <!-- Title Page -->
     <div class="title-page">
         <div class="title-content">
@@ -552,7 +690,7 @@
     </div>
 
     <!-- Chapter 1: The Discovery -->
-    <div class="story-panel">
+    <div class="story-panel chapter-1-bg">
         <!-- Comic Sound Effects -->
         <div class="comic-sound-effect sound-boom">BOOM!</div>
         <div class="comic-sound-effect sound-pow">POW!</div>
@@ -591,7 +729,7 @@
     </div>
 
     <!-- Chapter 2: Power-Up Time! -->
-    <div class="story-panel">
+    <div class="story-panel chapter-2-bg">
         <!-- Comic Sound Effects -->
         <div class="comic-sound-effect sound-zap">ZAP!</div>
         <div class="comic-sound-effect sound-bang">BANG!</div>
@@ -637,7 +775,7 @@
     </div>
 
     <!-- Chapter 3: Epic Quests -->
-    <div class="story-panel">
+    <div class="story-panel chapter-3-bg">
         <!-- Comic Sound Effects -->
         <div class="comic-sound-effect" style="font-size: 2rem; color: #43e97b; top: 20%; left: 15%; transform: rotate(-12deg);">WHOOSH!</div>
         <div class="comic-sound-effect" style="font-size: 1.8rem; color: #feca57; bottom: 30%; right: 20%; transform: rotate(18deg);">KAPOW!</div>
@@ -702,7 +840,7 @@
     </div>
 
     <!-- Chapter 4: Leadership Unlocked -->
-    <div class="story-panel">
+    <div class="story-panel chapter-4-bg">
         <!-- Comic Sound Effects -->
         <div class="comic-sound-effect" style="font-size: 2.3rem; color: #ff6b9d; top: 15%; right: 12%; transform: rotate(-8deg);">SUPER!</div>
         <div class="comic-sound-effect" style="font-size: 2rem; color: #4facfe; bottom: 25%; left: 10%; transform: rotate(25deg);">AMAZING!</div>
@@ -747,7 +885,7 @@
     </div>
 
     <!-- Chapter 5: The Future Awaits -->
-    <div class="story-panel">
+    <div class="story-panel chapter-5-bg">
         <div class="comic-bubble">
             <h2 class="chapter-title" style="color: #6a4c93;">CHAPTER 5: THE FUTURE AWAITS! 🚀</h2>
             
@@ -808,7 +946,7 @@
     </div>
 
     <!-- TO BE CONTINUED Page -->
-    <div class="story-panel">
+    <div class="story-panel final-bg">
         <!-- Remove transition effects from final page -->
         <style>
             .story-panel:last-child::after {
@@ -851,12 +989,90 @@
     </div>
 
     <script>
+        // Simple Audio Management for Custom Audio File
+        let isPlaying = false;
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const audioToggle = document.getElementById('audioToggle');
+        const audioIcon = audioToggle.querySelector('.audio-icon');
+        const audioText = audioToggle.querySelector('span:last-child');
+
+        // Set initial volume to be subtle
+        backgroundMusic.volume = 0.3;
+
+        audioToggle.addEventListener('click', function() {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                audioIcon.textContent = '🔇';
+                audioText.textContent = 'Muted';
+                audioToggle.classList.add('muted');
+                isPlaying = false;
+            } else {
+                // Try to play music - handle browser autoplay restrictions
+                backgroundMusic.play().then(() => {
+                    audioIcon.textContent = '🎵';
+                    audioText.textContent = 'Music';
+                    audioToggle.classList.remove('muted');
+                    isPlaying = true;
+                }).catch((error) => {
+                    console.log('Autoplay prevented:', error);
+                    // Show a more user-friendly message
+                    audioText.textContent = 'Click to enable';
+                });
+            }
+        });
+
+        // Sound effects for interactions
+        function playClickSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } catch (error) {
+                // Silent fail if audio context creation fails
+            }
+        }
+
+        function playHoverSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.05);
+            } catch (error) {
+                // Silent fail if audio context creation fails
+            }
+        }
+
         // Clean, minimal interactions with smooth scroll
         document.addEventListener('DOMContentLoaded', function() {
-            // Smooth hover effects for comic bubbles
+            // Smooth hover effects for comic bubbles with sound
             document.querySelectorAll('.comic-bubble').forEach(bubble => {
                 bubble.addEventListener('mouseenter', function() {
                     this.style.transform = this.style.transform.replace('rotate', 'scale(1.02) rotate');
+                    if (isPlaying) playHoverSound();
                 });
                 
                 bubble.addEventListener('mouseleave', function() {
@@ -864,13 +1080,14 @@
                 });
             });
             
-            // Click effects for sound effects
+            // Click effects for sound effects with audio
             document.querySelectorAll('.comic-sound-effect').forEach(effect => {
                 effect.addEventListener('click', function() {
                     this.style.animation = 'none';
                     setTimeout(() => {
                         this.style.animation = 'soundEffect 0.8s ease-out';
                     }, 10);
+                    playClickSound();
                 });
             });
             
@@ -895,6 +1112,17 @@
             // Observe all story panels for smooth entrance
             document.querySelectorAll('.story-panel').forEach(panel => {
                 observer.observe(panel);
+            });
+
+            // Add click sounds to achievement badges
+            document.querySelectorAll('.achievement-badge').forEach(badge => {
+                badge.addEventListener('click', function() {
+                    playClickSound();
+                    this.style.animation = 'none';
+                    setTimeout(() => {
+                        this.style.animation = 'badgeGlow 3s ease-in-out infinite';
+                    }, 10);
+                });
             });
         });
     </script>
